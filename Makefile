@@ -1,11 +1,11 @@
-SRC=main3G.C image.C sink.C source.C PNMreader.C PNMwriter.C filters.C logging.C
+SRC=main.C image.C sink.C source.C PNMreader.C PNMwriter.C filters.C logging.C
 OBJ=$(SRC:.C=.o)
 
 prog: $(OBJ)
-	g++ $(OBJ) -o proj3G
+	icpc -fPIC -I$(TBBROOT)/include -std=c++11 $(OBJ) -o proj -L$(TBBLIB) -ltbb -fopenmp 
 
 .C.o: $<
-	g++  -g -I. -c $<
+	icpc  -g  -fPIC -I$(TBBROOT)/include -std=c++11 -L$(TBBLIB) -ltbb -I. -c $<
 
 clean:
-	rm *.o proj3G
+	rm *.o proj

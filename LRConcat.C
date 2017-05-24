@@ -20,7 +20,26 @@ void LRConcat::Execute(){
 	 const Image* rightInput = pointer2;
 		
 	Image* output = GetOutput();
-	output->SetSize(leftInput->GetW() + rightInput->GetW(), leftInput->GetH());        
+	output->SetSize(leftInput->GetW() + rightInput->GetW(), leftInput->GetH());  
+	int width = output->GetW();
+	int height = output ->GetH();
+	int lwidth = leftInput->GetW();
+	tbb::parallel_for (
+		tbb::blocked_range<int>(0, width), [&] (tbb::blocked_range<int> v) {
+			for (size_t i = v.begin(); i != v.end(); ++i){
+				for (int j = 0; j < height; j++){
+					if (i < lwidth){
+						output->GetP()[j*output->GetW()+(i)] = leftInput->GetP()[j*leftInput->GetW()+i];
+					}
+					else {
+						output->GetP()[j*output->GetW()+i] = rightInput->GetP()[j*rightInput->GetW()+(i-leftInput->GetW())];
+					}
+				}
+			}
+}); 
+
+}
+/*      
 	for (int i = 0; i < output->GetW(); i++){
 		for (int j = 0; j < output->GetH(); j++){
 			if (i < leftInput->GetW()){
@@ -32,7 +51,7 @@ void LRConcat::Execute(){
 		}
 
 	}
-	}
+	}*/
 catch(const DataFlowException &e){
 	throw e;
 }        

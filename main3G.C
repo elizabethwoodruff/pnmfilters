@@ -1,7 +1,7 @@
 #include <PNMreader.h>
 #include <PNMwriter.h>
 #include <filters.h>
-
+#include <omp.h>
 #include <Blender.C>
 #include <LRConcat.C>
 #include<crop.C>

@@ -1,0 +1,5 @@
+This is the time needed for the parallel project to run 
+Date: 5/23/2017
+Parallel Time: 0.032799 
+
+

@@ -1,0 +1,4 @@
+This is the time needed for the serial to execute:
+Date: 5/22/2017
+Time: 0.124331 
+

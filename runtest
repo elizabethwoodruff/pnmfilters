@@ -1,0 +1,6 @@
+clear 
+make clean
+make
+./proj in.pnm out.pnm
+diff out.pnm SANITY_CHECK.pnm
+diff parallel_res.txt Serial/serial.txt 

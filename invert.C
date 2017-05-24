@@ -12,6 +12,28 @@ void Invert::Execute(){
  GetOutput()->SetSize(width, height);
   unsigned char *buffer = (unsigned char*)GetOutput()->GetP();
   const unsigned char *buffer1 = (const unsigned char*)pointer1->GetP();
+  tbb::parallel_for (
+	tbb::blocked_range<int>(0, width),[&] (tbb::blocked_range<int> v){
+		for (size_t i = v.begin(); i != v.end(); ++i){
+               for (int j = 0; j < height; j++){
+		int idx1 = j*width+i;
+		int idx = j*width+i;
+                buffer[3*idx] =    255 - buffer1[3*idx];
+                buffer[3*idx+1] =  255 - buffer1[3*idx+1];
+                buffer[3*idx+2] =  255 -  buffer1[3*idx+2];
+		}
+			
+
+		}
+
+
+	}
+
+
+
+);
+
+/*	
 	for (int i= 0; i < width; i++){
                for (int j = 0; j < height; j++){
 		int idx1 = j*width+i;
@@ -20,6 +42,6 @@ void Invert::Execute(){
                 buffer[3*idx+1] =  255 - buffer1[3*idx+1];
                 buffer[3*idx+2] =  255 -  buffer1[3*idx+2];
 		}
-        }
+        }*/
 return; 
 }

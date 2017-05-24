@@ -1,0 +1,6 @@
+clear 
+make clean
+make
+./proj3G in.pnm out.pnm
+diff out.pnm SANITY_CHECK.pnm 
+pprof < pprof_results_serial.txt
